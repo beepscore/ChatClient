@@ -35,12 +35,20 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5pr-qe-uFZ" userLabel="ChatView">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" red="0.59999999999999998" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="5pr-qe-uFZ" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="5Ib-A4-WI4"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="5pr-qe-uFZ" secondAttribute="bottom" id="Bc9-uA-JQu"/>
                             <constraint firstAttribute="trailingMargin" secondItem="TDY-gx-T9r" secondAttribute="trailing" id="CMa-5K-cH7"/>
+                            <constraint firstItem="5pr-qe-uFZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="pBy-Be-gKm"/>
                             <constraint firstItem="TDY-gx-T9r" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="qZv-DI-SB0"/>
                             <constraint firstItem="TDY-gx-T9r" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="60" id="vCW-dh-KNc"/>
+                            <constraint firstAttribute="trailing" secondItem="5pr-qe-uFZ" secondAttribute="trailing" id="zbd-e6-9Yq"/>
                         </constraints>
                     </view>
                     <connections>
