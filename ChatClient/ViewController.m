@@ -13,6 +13,8 @@
     NSOutputStream *outputStream;
 }
 
+@property (strong, nonatomic) NSMutableArray *messages;
+
 @property (weak, nonatomic) IBOutlet UIStackView *joinView;
 @property (weak, nonatomic) IBOutlet UITextField *inputNameField;
 
@@ -32,6 +34,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
 
+    self.messages = [NSMutableArray arrayWithArray:@[]];
     [self initNetworkCommunication];
 }
 
@@ -60,7 +63,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
+    return self.messages.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -68,6 +71,7 @@
     static NSString *cellIdentifier = @"ChatCellIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier
                                                             forIndexPath:indexPath];
+    cell.textLabel.text = [self.messages objectAtIndex:indexPath.row];
     return cell;
 }
 
