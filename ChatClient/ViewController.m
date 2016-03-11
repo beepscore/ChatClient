@@ -26,6 +26,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+
+    [self initNetworkCommunication];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -61,6 +63,18 @@
     // http://stackoverflow.com/questions/18067108/when-should-you-use-bridge-vs-cfbridgingrelease-cfbridgingretain
     inputStream = (__bridge NSInputStream *)readStream;
     outputStream = (__bridge NSOutputStream *)writeStream;
+
+    inputStream.delegate = self;
+    outputStream.delegate = self;
+
+    // use run loop to allow other code to run and ensure get stream event notifications
+    [inputStream scheduleInRunLoop:[NSRunLoop currentRunLoop]
+                           forMode:NSDefaultRunLoopMode];
+    [outputStream scheduleInRunLoop:[NSRunLoop currentRunLoop]
+                           forMode:NSDefaultRunLoopMode];
+
+    [inputStream open];
+    [outputStream open];
 }
 
 @end
