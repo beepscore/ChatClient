@@ -50,6 +50,25 @@
 - (IBAction)sendMessage:(id)sender {
 }
 
+#pragma mark - UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    static NSString *cellIdentifier = @"ChatCellIdentifier";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier
+                                                            forIndexPath:indexPath];
+    return cell;
+}
+
+#pragma mark - UITableViewDelegate
+
 #pragma mark - stream methods
 
 /**

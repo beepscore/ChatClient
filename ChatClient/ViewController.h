@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController <NSStreamDelegate>
+@interface ViewController : UIViewController
+<NSStreamDelegate, UITableViewDataSource, UITableViewDelegate>
 
 
 @end
