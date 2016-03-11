@@ -10,6 +10,12 @@
 
 @interface ViewController ()
 
+@property (weak, nonatomic) IBOutlet UIStackView *joinView;
+
+@property (weak, nonatomic) IBOutlet UITextField *inputNameField;
+
+- (IBAction)joinChat:(id)sender;
+
 @end
 
 @implementation ViewController
@@ -24,4 +30,6 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)joinChat:(id)sender {
+}
 @end
