@@ -14,10 +14,15 @@
 }
 
 @property (weak, nonatomic) IBOutlet UIStackView *joinView;
-
 @property (weak, nonatomic) IBOutlet UITextField *inputNameField;
 
 - (IBAction)joinChat:(id)sender;
+
+@property (weak, nonatomic) IBOutlet UIView *chatView;
+@property (weak, nonatomic) IBOutlet UITextField *inputMessageField;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+- (IBAction)sendMessage:(id)sender;
 
 @end
 
@@ -40,6 +45,9 @@
     NSString *response = [NSString stringWithFormat:@"iam:%@", self.inputNameField.text];
     NSData *data = [[NSData alloc] initWithData:[response dataUsingEncoding:NSASCIIStringEncoding]];
     [outputStream write:[data bytes] maxLength:[data length]];
+}
+
+- (IBAction)sendMessage:(id)sender {
 }
 
 #pragma mark - stream methods

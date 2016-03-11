@@ -50,12 +50,19 @@
                                                 <rect key="frame" x="537" y="0.0" width="47" height="36"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <state key="normal" title="Send"/>
+                                                <connections>
+                                                    <action selector="sendMessage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="05s-rK-8rf"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hhy-wv-mwo">
                                         <rect key="frame" x="8" y="97" width="584" height="495"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="BYZ-38-t0r" id="GzE-Hs-CdF"/>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="aGg-lG-gOJ"/>
+                                        </connections>
                                     </tableView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.59999999999999998" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -82,8 +89,11 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="chatView" destination="5pr-qe-uFZ" id="Exw-Gc-pGO"/>
+                        <outlet property="inputMessageField" destination="Mns-vQ-7JU" id="cgj-YC-4jV"/>
                         <outlet property="inputNameField" destination="mv7-9K-Y1d" id="c2a-ii-6GT"/>
                         <outlet property="joinView" destination="TDY-gx-T9r" id="DsB-ji-GkF"/>
+                        <outlet property="tableView" destination="hhy-wv-mwo" id="X8J-Xr-sO0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
