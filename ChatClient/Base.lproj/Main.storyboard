@@ -53,12 +53,20 @@
                                             </button>
                                         </subviews>
                                     </stackView>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hhy-wv-mwo">
+                                        <rect key="frame" x="8" y="97" width="584" height="495"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.59999999999999998" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailingMargin" secondItem="Jvg-3a-vMp" secondAttribute="trailing" id="5Qg-pV-8T9"/>
                                     <constraint firstItem="Jvg-3a-vMp" firstAttribute="top" secondItem="5pr-qe-uFZ" secondAttribute="topMargin" constant="53" id="FUe-Al-En5"/>
+                                    <constraint firstItem="hhy-wv-mwo" firstAttribute="top" secondItem="Jvg-3a-vMp" secondAttribute="bottom" id="Yv0-0b-xw9"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="hhy-wv-mwo" secondAttribute="trailing" id="bSn-Ce-m78"/>
+                                    <constraint firstItem="hhy-wv-mwo" firstAttribute="leading" secondItem="5pr-qe-uFZ" secondAttribute="leadingMargin" id="oMs-11-Gjf"/>
                                     <constraint firstItem="Jvg-3a-vMp" firstAttribute="leading" secondItem="5pr-qe-uFZ" secondAttribute="leadingMargin" id="s6U-FX-LXJ"/>
+                                    <constraint firstItem="hhy-wv-mwo" firstAttribute="bottom" secondItem="5pr-qe-uFZ" secondAttribute="bottomMargin" id="yqN-Y5-Y88"/>
                                 </constraints>
                             </view>
                         </subviews>
