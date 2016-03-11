@@ -49,6 +49,9 @@
 }
 
 - (IBAction)sendMessage:(id)sender {
+    NSString *response = [NSString stringWithFormat:@"msg:%@", self.inputMessageField.text];
+    NSData *data = [[NSData alloc] initWithData:[response dataUsingEncoding:NSASCIIStringEncoding]];
+    [outputStream write:[data bytes] maxLength:[data length]];
 }
 
 #pragma mark - UITableViewDataSource
