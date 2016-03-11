@@ -68,7 +68,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    static NSString *cellIdentifier = @"ChatCellIdentifier";
+    static NSString *cellIdentifier = @"ChatCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier
                                                             forIndexPath:indexPath];
     cell.textLabel.text = [self.messages objectAtIndex:indexPath.row];
@@ -114,6 +114,61 @@
 
     [inputStream open];
     [outputStream open];
+}
+
+#pragma mark - NSStreamDelegate
+- (void)stream:(NSStream *)stream handleEvent:(NSStreamEvent)eventCode {
+    
+    switch (eventCode) {
+            
+        case NSStreamEventOpenCompleted: {
+            NSLog(@"Stream opened");
+            break;
+        }
+        case NSStreamEventHasBytesAvailable: {
+            [self handleBytesAvailableInStream:stream];
+            break;
+        }
+        case NSStreamEventErrorOccurred: {
+            NSLog(@"Can not connect to the host!");
+            break;
+        }
+        case NSStreamEventEndEncountered: {
+            break;
+        }
+        default: {
+            NSLog(@"Unknown event");
+            break;
+        }
+    }
+}
+
+- (void)handleBytesAvailableInStream:(NSStream *)stream {
+    if (stream != inputStream) {
+        return;
+    }
+
+    uint8_t buffer[1024];
+    NSInteger len;
+
+    while ([inputStream hasBytesAvailable]) {
+        len = [inputStream read:buffer maxLength:sizeof(buffer)];
+        if (len > 0) {
+            NSString *output = [[NSString alloc] initWithBytes:buffer
+                                                        length:len
+                                                      encoding:NSASCIIStringEncoding];
+
+            if (nil != output) {
+                NSLog(@"server said %@", output);
+                [self messageReceived:output];
+            }
+        }
+    }
+}
+
+- (void)messageReceived:(NSString *)message {
+    [self.messages addObject:message];
+    [self.tableView reloadData];
 }
 
 @end
