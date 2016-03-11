@@ -11,7 +11,15 @@
 @interface ViewController () {
     NSInputStream *inputStream;
     NSOutputStream *outputStream;
+
 }
+
+// assumes server is running on same machine as simulator, i.e. both are running on the same Mac.
+// may be set to @"localhost"
+extern NSString *hostForSimulator;
+// assumes server is running on same wifi network as simulator or device
+// may be of the form of an ip address e.g. @"10.0.0.16"
+extern NSString *hostForSimulatorOrDeviceOnSameWifi;
 
 @property (strong, nonatomic) NSMutableArray *messages;
 
@@ -29,6 +37,10 @@
 @end
 
 @implementation ViewController
+
+NSString *hostForSimulator = @"localhost";
+NSString *hostForSimulatorOrDeviceOnSameWifi = @"10.0.0.16";
+NSString *host;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -93,7 +105,8 @@
     CFReadStreamRef readStream;
     CFWriteStreamRef writeStream;
     UInt32 port = 80;
-    CFStreamCreatePairWithSocketToHost(NULL, (CFStringRef)@"localhost",
+    host = hostForSimulatorOrDeviceOnSameWifi;
+    CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)host,
                                        port,
                                        &readStream, &writeStream);
     
