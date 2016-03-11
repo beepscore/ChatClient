@@ -136,6 +136,7 @@
             break;
         }
         case NSStreamEventEndEncountered: {
+            [self handleEventEndInStream:stream];
             break;
         }
         default: {
@@ -171,6 +172,12 @@
 - (void)messageReceived:(NSString *)message {
     [self.messages addObject:message];
     [self.tableView reloadData];
+}
+
+- (void)handleEventEndInStream:(NSStream *)stream {
+    [stream close];
+    [stream removeFromRunLoop:[NSRunLoop currentRunLoop]
+                      forMode:NSDefaultRunLoopMode];
 }
 
 @end
