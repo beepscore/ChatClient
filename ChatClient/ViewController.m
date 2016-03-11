@@ -71,6 +71,7 @@
     static NSString *cellIdentifier = @"ChatCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier
                                                             forIndexPath:indexPath];
+    cell.textLabel.numberOfLines = 2;
     cell.textLabel.text = [self.messages objectAtIndex:indexPath.row];
     return cell;
 }
