@@ -55,6 +55,7 @@
     NSString *response = [NSString stringWithFormat:@"msg:%@", self.inputMessageField.text];
     NSData *data = [[NSData alloc] initWithData:[response dataUsingEncoding:NSASCIIStringEncoding]];
     [outputStream write:[data bytes] maxLength:[data length]];
+    self.inputMessageField.text = @"";
 }
 
 #pragma mark - UITableViewDataSource
