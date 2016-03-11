@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE59EBD11C9367FF00DBCB3A /* BSStreamManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DE59EBD01C9367FF00DBCB3A /* BSStreamManager.m */; };
 		DEC9531C1C929BE900FFDFD6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC9531B1C929BE900FFDFD6 /* main.m */; };
 		DEC9531F1C929BE900FFDFD6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC9531E1C929BE900FFDFD6 /* AppDelegate.m */; };
 		DEC953221C929BE900FFDFD6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC953211C929BE900FFDFD6 /* ViewController.m */; };
@@ -35,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DE59EBCF1C9367FF00DBCB3A /* BSStreamManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSStreamManager.h; sourceTree = "<group>"; };
+		DE59EBD01C9367FF00DBCB3A /* BSStreamManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSStreamManager.m; sourceTree = "<group>"; };
 		DE97CCC41C929DF1008CB3E8 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DEC953171C929BE900FFDFD6 /* ChatClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEC9531B1C929BE900FFDFD6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -105,6 +108,8 @@
 			children = (
 				DEC9531D1C929BE900FFDFD6 /* AppDelegate.h */,
 				DEC9531E1C929BE900FFDFD6 /* AppDelegate.m */,
+				DE59EBCF1C9367FF00DBCB3A /* BSStreamManager.h */,
+				DE59EBD01C9367FF00DBCB3A /* BSStreamManager.m */,
 				DEC953201C929BE900FFDFD6 /* ViewController.h */,
 				DEC953211C929BE900FFDFD6 /* ViewController.m */,
 				DEC953231C929BE900FFDFD6 /* Main.storyboard */,
@@ -272,6 +277,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE59EBD11C9367FF00DBCB3A /* BSStreamManager.m in Sources */,
 				DEC953221C929BE900FFDFD6 /* ViewController.m in Sources */,
 				DEC9531F1C929BE900FFDFD6 /* AppDelegate.m in Sources */,
 				DEC9531C1C929BE900FFDFD6 /* main.m in Sources */,
