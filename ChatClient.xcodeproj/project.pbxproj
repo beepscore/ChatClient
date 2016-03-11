@@ -35,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DE97CCC41C929DF1008CB3E8 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DEC953171C929BE900FFDFD6 /* ChatClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEC9531B1C929BE900FFDFD6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DEC9531D1C929BE900FFDFD6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -81,6 +82,7 @@
 		DEC9530E1C929BE900FFDFD6 = {
 			isa = PBXGroup;
 			children = (
+				DE97CCC41C929DF1008CB3E8 /* README.md */,
 				DEC953191C929BE900FFDFD6 /* ChatClient */,
 				DEC953331C929BEA00FFDFD6 /* ChatClientTests */,
 				DEC9533E1C929BEA00FFDFD6 /* ChatClientUITests */,
@@ -496,6 +498,7 @@
 				DEC953461C929BEA00FFDFD6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DEC953471C929BEA00FFDFD6 /* Build configuration list for PBXNativeTarget "ChatClientTests" */ = {
 			isa = XCConfigurationList;
@@ -504,6 +507,7 @@
 				DEC953491C929BEA00FFDFD6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DEC9534A1C929BEA00FFDFD6 /* Build configuration list for PBXNativeTarget "ChatClientUITests" */ = {
 			isa = XCConfigurationList;
@@ -512,6 +516,7 @@
 				DEC9534C1C929BEA00FFDFD6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
