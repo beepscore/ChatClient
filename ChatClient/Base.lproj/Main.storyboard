@@ -37,7 +37,29 @@
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5pr-qe-uFZ" userLabel="ChatView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Jvg-3a-vMp">
+                                        <rect key="frame" x="8" y="61" width="584" height="36"/>
+                                        <subviews>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mns-vQ-7JU">
+                                                <rect key="frame" x="0.0" y="0.0" width="527" height="36"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a1R-Yn-PcK">
+                                                <rect key="frame" x="537" y="0.0" width="47" height="36"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <state key="normal" title="Send"/>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
                                 <color key="backgroundColor" red="0.59999999999999998" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailingMargin" secondItem="Jvg-3a-vMp" secondAttribute="trailing" id="5Qg-pV-8T9"/>
+                                    <constraint firstItem="Jvg-3a-vMp" firstAttribute="top" secondItem="5pr-qe-uFZ" secondAttribute="topMargin" constant="53" id="FUe-Al-En5"/>
+                                    <constraint firstItem="Jvg-3a-vMp" firstAttribute="leading" secondItem="5pr-qe-uFZ" secondAttribute="leadingMargin" id="s6U-FX-LXJ"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
