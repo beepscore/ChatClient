@@ -36,6 +36,10 @@
 }
 
 - (IBAction)joinChat:(id)sender {
+    // send message to server
+    NSString *response = [NSString stringWithFormat:@"iam:%@", self.inputNameField.text];
+    NSData *data = [[NSData alloc] initWithData:[response dataUsingEncoding:NSASCIIStringEncoding]];
+    [outputStream write:[data bytes] maxLength:[data length]];
 }
 
 #pragma mark - stream methods
