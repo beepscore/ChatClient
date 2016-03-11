@@ -8,7 +8,10 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()
+@interface ViewController () {
+    NSInputStream *inputStream;
+    NSOutputStream *outputStream;
+}
 
 @property (weak, nonatomic) IBOutlet UIStackView *joinView;
 
