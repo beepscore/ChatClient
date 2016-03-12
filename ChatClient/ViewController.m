@@ -7,19 +7,11 @@
 //
 
 #import "ViewController.h"
+#import "BSStreamManager.h"
 
-@interface ViewController () {
-    NSInputStream *inputStream;
-    NSOutputStream *outputStream;
+@interface ViewController ()
 
-}
-
-// assumes server is running on same machine as simulator, i.e. both are running on the same Mac.
-// may be set to @"localhost"
-extern NSString *hostForSimulator;
-// assumes server is running on same wifi network as simulator or device
-// may be of the form of an ip address e.g. @"10.0.0.16"
-extern NSString *hostForSimulatorOrDeviceOnSameWifi;
+@property (strong, nonatomic) BSStreamManager *streamManager;
 
 @property (strong, nonatomic) NSMutableArray *messages;
 
@@ -38,16 +30,19 @@ extern NSString *hostForSimulatorOrDeviceOnSameWifi;
 
 @implementation ViewController
 
-NSString *hostForSimulator = @"localhost";
-NSString *hostForSimulatorOrDeviceOnSameWifi = @"10.0.0.16";
-NSString *host;
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
 
     self.messages = [NSMutableArray arrayWithArray:@[]];
-    [self initNetworkCommunication];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleMessageReceivedNotification:)
+                                                 name:messageReceivedNotification
+                                               object:nil];
+
+    self.streamManager = [[BSStreamManager alloc] init];
+    [self.streamManager initNetworkCommunication];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -55,19 +50,30 @@ NSString *host;
     // Dispose of any resources that can be recreated.
 }
 
+- (void)dealloc {
+    // is this unnecessary in iOS 9?
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:messageReceivedNotification
+                                                  object:nil];
+}
+
+#pragma mark - send messages
+
 - (IBAction)joinChat:(id)sender {
-    // send message to server
-    NSString *response = [NSString stringWithFormat:@"iam:%@", self.inputNameField.text];
-    NSData *data = [[NSData alloc] initWithData:[response dataUsingEncoding:NSASCIIStringEncoding]];
-    [outputStream write:[data bytes] maxLength:[data length]];
+    [self.streamManager joinChat:self.inputNameField.text];
     [self.view bringSubviewToFront:self.chatView];
 }
 
 - (IBAction)sendMessage:(id)sender {
-    NSString *response = [NSString stringWithFormat:@"msg:%@", self.inputMessageField.text];
-    NSData *data = [[NSData alloc] initWithData:[response dataUsingEncoding:NSASCIIStringEncoding]];
-    [outputStream write:[data bytes] maxLength:[data length]];
+    [self.streamManager sendMessage:self.inputMessageField.text];
     self.inputMessageField.text = @"";
+}
+
+#pragma mark - receive messages
+- (void)handleMessageReceivedNotification:(NSNotification *)notification {
+    NSString *message = notification.userInfo[messageKey];
+    [self.messages addObject:message];
+    [self.tableView reloadData];
 }
 
 #pragma mark - UITableViewDataSource
@@ -84,113 +90,11 @@ NSString *host;
     static NSString *cellIdentifier = @"ChatCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier
                                                             forIndexPath:indexPath];
-    cell.textLabel.numberOfLines = 2;
+    cell.textLabel.numberOfLines = 0;
     cell.textLabel.text = [self.messages objectAtIndex:indexPath.row];
     return cell;
 }
 
 #pragma mark - UITableViewDelegate
-
-#pragma mark - stream methods
-
-/**
- * Use toll free bridge between NSStream and CFStream
- * Technical Q&A QA1652
- * Using NSStreams For A TCP Connection Without NSHost
- * shows using CFBridgingRelease
- * https://developer.apple.com/library/ios/qa/qa1652/_index.html
- */
-- (void)initNetworkCommunication {
-    // bind CFStreams to a host and a port
-    CFReadStreamRef readStream;
-    CFWriteStreamRef writeStream;
-    UInt32 port = 80;
-    host = hostForSimulatorOrDeviceOnSameWifi;
-    CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)host,
-                                       port,
-                                       &readStream, &writeStream);
-    
-    // Now bridged cast the CFStreams to NSStreams
-    // Xcode fixit said needed to bridge, offered 2 solutions
-    // use __bridge instead of CFBridgingRelease
-    // Not sure which choice is more correct
-    // http://stackoverflow.com/questions/18067108/when-should-you-use-bridge-vs-cfbridgingrelease-cfbridgingretain
-    inputStream = (__bridge NSInputStream *)readStream;
-    outputStream = (__bridge NSOutputStream *)writeStream;
-
-    inputStream.delegate = self;
-    outputStream.delegate = self;
-
-    // use run loop to allow other code to run and ensure get stream event notifications
-    [inputStream scheduleInRunLoop:[NSRunLoop currentRunLoop]
-                           forMode:NSDefaultRunLoopMode];
-    [outputStream scheduleInRunLoop:[NSRunLoop currentRunLoop]
-                           forMode:NSDefaultRunLoopMode];
-
-    [inputStream open];
-    [outputStream open];
-}
-
-#pragma mark - NSStreamDelegate
-- (void)stream:(NSStream *)stream handleEvent:(NSStreamEvent)eventCode {
-    
-    switch (eventCode) {
-            
-        case NSStreamEventOpenCompleted: {
-            NSLog(@"Stream opened");
-            break;
-        }
-        case NSStreamEventHasBytesAvailable: {
-            [self handleBytesAvailableInStream:stream];
-            break;
-        }
-        case NSStreamEventErrorOccurred: {
-            NSLog(@"Can not connect to the host!");
-            break;
-        }
-        case NSStreamEventEndEncountered: {
-            [self handleEventEndInStream:stream];
-            break;
-        }
-        default: {
-            NSLog(@"Unknown event");
-            break;
-        }
-    }
-}
-
-- (void)handleBytesAvailableInStream:(NSStream *)stream {
-    if (stream != inputStream) {
-        return;
-    }
-
-    uint8_t buffer[1024];
-    NSInteger len;
-
-    while ([inputStream hasBytesAvailable]) {
-        len = [inputStream read:buffer maxLength:sizeof(buffer)];
-        if (len > 0) {
-            NSString *output = [[NSString alloc] initWithBytes:buffer
-                                                        length:len
-                                                      encoding:NSASCIIStringEncoding];
-
-            if (nil != output) {
-                NSLog(@"server said %@", output);
-                [self messageReceived:output];
-            }
-        }
-    }
-}
-
-- (void)messageReceived:(NSString *)message {
-    [self.messages addObject:message];
-    [self.tableView reloadData];
-}
-
-- (void)handleEventEndInStream:(NSStream *)stream {
-    [stream close];
-    [stream removeFromRunLoop:[NSRunLoop currentRunLoop]
-                      forMode:NSDefaultRunLoopMode];
-}
 
 @end

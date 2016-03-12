@@ -8,6 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BSStreamManager : NSObject
+@interface BSStreamManager : NSObject <NSStreamDelegate>
+
+extern NSString *messageReceivedNotification;
+
+/**
+ * key used in messageReceivedNotification userInfo dictionary
+ */
+extern NSString *messageKey;
+
+- (void)initNetworkCommunication;
+
+- (void)joinChat:(NSString *)userName;
+
+- (void)sendMessage:(NSString *)message;
 
 @end
